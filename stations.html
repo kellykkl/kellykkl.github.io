@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Leaflet Map</title>
+    <style type="text/css">
+      html {
+        background-color: #262626; 
+      }
+
+    .bkroute{
+        color: 'yellow';
+        weight: 2;
+        opacity: .6;
+    }
+            #tooltip {
+                position: absolute;
+                width: auto;
+                height: auto;
+                padding: 10px;
+                background-color: black;
+                pointer-events: none;
+                opacity: 0.75;
+            }
+            
+            #tooltip.hidden {
+                display: none;
+            }
+            
+            #tooltip p {
+                margin: 0;
+                font-family: Helvetica;
+                font-size: 16px;
+                color: white;
+                line-height: 20px;
+            }
+
+
+  </style>
+    <meta charset="utf-8" />
+    <link 
+        rel="stylesheet" 
+        href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"
+    />
+</head>
+<body>
+
+    <div id="map" style="width: 900px; height: 600px"></div>
+    <div id="vis" style="position:relative; top: -80px; float:left;"></div>
+    <div id="tooltip" class="hidden">
+        <p><span id="value">100</span></p>
+    </div>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="simpleD3Slider1.js"></script>
+    <script
+        src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js">
+    </script>
+    <script type="text/javascript">
+    
+        var map = L.map('map').setView([39.9525, -75.1962], 13);
+        mapLink = 
+            '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+        
+        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+          }).addTo(map);
+                
+    /* Initialize the SVG layer */
+    map._initPathRoot()    
+
+    /* We simply pick up the SVG from the map object */
+    var svg = d3.select("#map").select("svg"),
+    g = svg.append("g");
+
+    var stnsize = []
+    var allsizes = [];
+    d3.json("/data/stncoords.json", function(collection) {
+        
+
+        collection.forEach(function(d) {
+            d.LatLng = new L.LatLng(d.start_lat,
+                                    d.start_lon)
+            stnsize[String(d.start_station)] = 7; //make a dict of station ids and their corresponding sizes
+            allsizes[String(d.start_station)] = [7];
+        })
+        
+        var feature = g.selectAll("circle")
+            .data(collection)
+            .enter().append("circle")
+            .style("stroke", "black")  
+            .style("opacity", .6) 
+            .style("fill", "red")
+            .attr("r", 7)  
+            .on("mouseover", function(d) {
+
+                var xPosition = d3.event.x;
+                var yPosition = d3.event.y;
+                var name = d.name;
+
+                //Update the tooltip position and value
+                d3.select("#tooltip")
+                    .style("left", xPosition + "px")
+                    .style("top", yPosition + "px")                     
+                    .select("#value")
+                    .text(name);
+           
+                //Show the tooltip
+                d3.select("#tooltip").classed("hidden", false);
+
+            })
+            .on("mouseout", function() {
+           
+                //Hide the tooltip
+                d3.select("#tooltip").classed("hidden", true);
+                
+            });
+        
+        map.on("viewreset", update);
+        update();
+
+        function update() {
+            feature.attr("transform", 
+            function(d) { 
+                return "translate("+ 
+                    map.latLngToLayerPoint(d.LatLng).x +","+ 
+                    map.latLngToLayerPoint(d.LatLng).y +")";
+                }
+            )
+        }
+
+
+        d3.json("/data/Q1_2day.json", function(d){
+            for (i=0; i<24; i++){ //hours
+                for (j=0; j<60; j++){ //minutes
+                    d.forEach(function(q){
+                        if (q.starthr == i && q.startmin == j && stnsize[q.start_station]>0.45){
+                            //decrease radius of this startstation by a bit
+                            stnsize[q.start_station] -= 0.45;
+                        }
+                        if (q.endhr == i && q.endmin == j){
+                            //increase radius of this startstation by a bit
+                            stnsize[q.end_station] += 0.45;
+                        }
+                    })
+
+                    for (k=3004; k<3171; k++){
+                        try{
+                            allsizes[k].push(stnsize[k]);
+                        }catch(err){
+
+                        }
+
+                    }
+
+
+
+                }
+            }            
+
+
+  
+
+        })
+
+
+
+    var svg2 = d3.select("#vis").append("svg").attr("width", 1000).attr("height", 700),
+        slider1 = new simpleSlider();
+
+    svg2.append("text")
+        .attr("x", 30)             
+        .attr("y", 20)
+        .style("font-size", "20px") 
+        .style("font-family", "Helvetica") 
+        .style("fill","#FFFFFF")
+        .text("Time of Day");
+
+    slider1.width(500).x(30).y(40).value(0.01).event(function(){
+            svg.selectAll("circle")
+            .attr("r", function(d){
+                return(allsizes[d.start_station][Math.floor(slider1.value()*24*60)])
+            });           
+    });
+
+
+
+    svg2.call(slider1);
+
+
+
+
+
+
+
+
+    })  
+
+
+
+    </script>
+
+
+
+</body>
+</html>
