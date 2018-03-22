@@ -1,61 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Load D3 from site -->
-<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <style type="text/css">
-      html {
-        background-color: #121212; 
-      }
-        /* Format X and Y Axis */
-        .axis path,
-        .axis line {
-            fill: none;
-            stroke: white;
-            shape-rendering: crispEdges;
-        }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link rel="stylesheet" href="assets/css/main.css" />
+<style type="text/css">
+html {
+    background-color: #121212; 
+}
+/* Format X and Y Axis */
+.axis path,
+.axis line {
+    fill: none;
+    stroke: white;
+    shape-rendering: crispEdges;
+}
 
-        .axis text {
-            font-family: sans-serif;
-            font-size: 14px;
-            fill: white;
-        }
-        .line {
-            stroke: #E4002B;
-            fill: none;
-            stroke-width: 3;
-        }
+.axis text {
+    font-family: sans-serif;
+    font-size: 14px;
+    fill: white;
+}
+.line {
+    stroke: #E4002B;
+    fill: none;
+    stroke-width: 3;
+}
 
-            #tooltip {
-                position: absolute;
-                width: auto;
-                height: auto;
-                padding: 10px;
-                background-color: black;
-                pointer-events: none;
-                opacity: 0.75;
-                z-index: 5;
-            }
-            
-            #tooltip.hidden {
-                display: none;
-            }
-            
-            #tooltip p {
-                margin: 0;
-                font-family: Helvetica;
-                font-size: 16px;
-                color: white;
-                line-height: 20px;
-                z-index:6;
-            }
+#tooltip {
+    position: absolute;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    background-color: black;
+    pointer-events: none;
+    opacity: 0.75;
+    z-index: 5;
+}
+
+#tooltip.hidden {
+    display: none;
+}
+
+#tooltip p {
+    margin: 0;
+    font-family: Helvetica;
+    font-size: 16px;
+    color: white;
+    line-height: 20px;
+    z-index:6;
+}
 
 .container{
     display: flex;
@@ -73,89 +72,89 @@
 <body class="is-preload">
 
 
-      <header id="header">
-        <a class="logo" href="index.html"></a>
-        <nav>
-          <a href="#menu">Menu</a>
-        </nav>
-      </header>
+  <header id="header">
+    <a class="logo" href="index.html"></a>
+    <nav>
+      <a href="#menu">Menu</a>
+  </nav>
+</header>
 
-    <!-- Nav -->
-      <nav id="menu">
-        <ul class="links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="stations.html">Station Data</a></li>
-          <li><a href="working.html">Trip Data</a></li>
-          <li><a href="weather.html">Graphs and Charts</a></li>
-        </ul>
-      </nav>
+<!-- Nav -->
+<nav id="menu">
+    <ul class="links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="stations.html">Station Data</a></li>
+      <li><a href="working.html">Trip Data</a></li>
+      <li><a href="weather.html">Graphs and Charts</a></li>
+  </ul>
+</nav>
 
 
 
-    <div class="container" style="background-color: #121212">
-        <div id="chart1" class="fixed" style="width: 700px; height: 650px; position: relative; top: 50px; left: 300px"></div>
-        <div id="expl1" class="flex-item">
+<div class="container" style="background-color: #121212">
+    <div id="chart1" class="fixed" style="width: 700px; height: 650px; position: relative; top: 50px; left: 300px"></div>
+    <div id="expl1" class="flex-item">
 
-                <div class="content" style="width:200px; position: relative; left: 350px; top: 50px;" >
-                    <section>
-                    <h3 style="color: #F2F2F2">Weather Effects</h3>
-                    <p style="color: #F2F2F2">This graph shows the number of trips on a particular day as a function of the mean temperature of that day. On clear days (days with no snow or rain), we observe a significant positive relationship between temperature and number of trips. However, on wet days, this relationship seems to disappear.</p>
-                    </section>
-                </div>
-
+        <div class="content" style="width:200px; position: relative; left: 350px; top: 50px;" >
+            <section>
+                <h3 style="color: #F2F2F2">Weather Effects</h3>
+                <p style="color: #F2F2F2">This graph shows the number of trips on a particular day as a function of the mean temperature of that day. On clear days (days with no snow or rain), we observe a significant positive relationship between temperature and number of trips. However, on wet days, this relationship seems to disappear.</p>
+            </section>
         </div>
-    </div>
 
-    <div class="container" style="background-color: #121212">
-        <div id="chart2" class="fixed" style="width: 700px; height: 650px; position: relative; left: 300px">
-                                        <div id="tooltip" class="hidden" >
+    </div>
+</div>
+
+<div class="container" style="background-color: #121212">
+    <div id="chart2" class="fixed" style="width: 700px; height: 650px; position: relative; left: 300px">
+        <div id="tooltip" class="hidden" >
             <p><span id="value">100</span></p>
         </div>
-        </div>
-        <div id="expl2" class="flex-item">
+    </div>
+    <div id="expl2" class="flex-item">
 
-                <div class="content" style="width:200px; position: relative; left: 350px; top: 50px;" >
-                    <section>
-                    <h3 style="color: #F2F2F2">Time of year</h3>
-                    <p style="color: #F2F2F2">This graph shows the total number of trips in each month for the year of 2017. It corroborates well with the graph above - on summer months like July and August when temperatures are higher, more trips are made. One thing to note is that the difference between ridership in the least popular month and ridership in the most popular month is huge - they differ by a factor of more than 3. This knowledge might help Indego planners adjust for different demands in different seasons.</p>
-                    </section>
-                </div>
-
+        <div class="content" style="width:200px; position: relative; left: 350px; top: 50px;" >
+            <section>
+                <h3 style="color: #F2F2F2">Time of year</h3>
+                <p style="color: #F2F2F2">This graph shows the total number of trips in each month for the year of 2017. It corroborates well with the graph above - on summer months like July and August when temperatures are higher, more trips are made. One thing to note is that the difference between ridership in the least popular month and ridership in the most popular month is huge - they differ by a factor of more than 3. This knowledge might help Indego planners adjust for different demands in different seasons.</p>
+            </section>
         </div>
 
     </div>
 
-    <div class="container" style="background-color: #121212">
-        <div id="chart3" class="fixed" style="width: 700px; height: 650px; position: relative; left: 300px">
-        </div>
-        <div id="expl3" class="flex-item">
+</div>
 
-                <div class="content" style="width:200px; position: relative; left: 350px; top: 50px;" >
-                    <section>
-                    <h3 style="color: #F2F2F2">Bike mileage</h3>
-                    <p style="color: #F2F2F2">This histogram depicts the distribution of mileages per bike in the system. It approximates a normal distribution, with the mean somewhere in the 1000-1100 km range. One bike appears to be an outlier, clocking a mileage between 1900 and 2000 km. This data will help Indego operators with the scheduling of bike maintenance and replacements.</p>
-                    </section>
-                </div>
-
-        </div>
+<div class="container" style="background-color: #121212">
+    <div id="chart3" class="fixed" style="width: 700px; height: 650px; position: relative; left: 300px">
     </div>
+    <div id="expl3" class="flex-item">
+
+        <div class="content" style="width:200px; position: relative; left: 350px; top: 50px;" >
+            <section>
+                <h3 style="color: #F2F2F2">Bike mileage</h3>
+                <p style="color: #F2F2F2">This histogram depicts the distribution of mileages per bike in the system. It approximates a normal distribution, with the mean somewhere in the 1000-1100 km range. One bike appears to be an outlier, clocking a mileage between 1900 and 2000 km. This data will help Indego operators with the scheduling of bike maintenance and replacements.</p>
+            </section>
+        </div>
+
+    </div>
+</div>
 
 
 
 <h3></h3>
 
-      <script src="assets/js/jquery.min.js"></script>
-      <script src="assets/js/browser.min.js"></script>
-      <script src="assets/js/breakpoints.min.js"></script>
-      <script src="assets/js/util.js"></script>
-      <script src="assets/js/main.js"></script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
 
-<!-- Begin D3 Javascript -->
+
 <script type="text/javascript">
 
 
-// Setup data
-        var dataset_clear = [];  // Initialize empty array
+        //chart1
+        var dataset_clear = [];  
         var dataset_rain = [];
         var rain = 0;
         d3.json("/data/weathertrips.json", function(a) {
@@ -169,168 +168,163 @@
 
             });
 
-
-        // Setup settings for graphic
         var canvas_width = 750;
         var canvas_height = 550;
         var padding = 90;  // for chart edges
 
         // Create scale functions
-        var xScale = d3.scale.linear()  // xScale is width of graphic
-                        .domain([0, d3.max(dataset_rain, function(d) {
-                            return d[0];  // input domain
+        var xScale = d3.scale.linear()  
+        .domain([0, d3.max(dataset_rain, function(d) {
+                            return d[0];  
                         })])
-                        .range([padding, canvas_width - padding * 2]); // output range
+                        .range([padding, canvas_width - padding * 2]); 
 
-        var yScale = d3.scale.linear()  // yScale is height of graphic
-                        .domain([0, d3.max(dataset_rain, function(d) {
-                            return d[1];  // input domain
+        var yScale = d3.scale.linear()  
+        .domain([0, d3.max(dataset_rain, function(d) {
+                            return d[1];  
                         })])
-                        .range([canvas_height - padding, padding]);  // remember y starts on top going down so we flip
+                        .range([canvas_height - padding, padding]);  
 
         // Define X axis
         var xAxis = d3.svg.axis()
-                        .scale(xScale)
-                        .orient("bottom")
-                        .ticks(5);
+        .scale(xScale)
+        .orient("bottom")
+        .ticks(5);
 
         // Define Y axis
         var yAxis = d3.svg.axis()
-                        .scale(yScale)
-                        .orient("left")
-                        .ticks(5);
+        .scale(yScale)
+        .orient("left")
+        .ticks(5);
 
         // Create SVG element
-        var svg = d3.select("#chart1")  // This is where we put our vis
-            .append("svg")
-            .attr("width", canvas_width)
-            .attr("height", canvas_height)
+        var svg = d3.select("#chart1") 
+        .append("svg")
+        .attr("width", canvas_width)
+        .attr("height", canvas_height)
 
         svg.append("line")
-              .attr({
-                x1: xScale(1.6),
-                y1: yScale(0),
-                x2: xScale(6.5),
-                y2: yScale(3507)
-              })
-            .attr("stroke", "#56d58e")
-            .attr("stroke-width", 2)
-            .attr("fill", "none");
+        .attr({
+            x1: xScale(1.6),
+            y1: yScale(0),
+            x2: xScale(6.5),
+            y2: yScale(3507)
+        })
+        .attr("stroke", "#56d58e")
+        .attr("stroke-width", 2)
+        .attr("fill", "none");
 
         // Create Circles
         svg.selectAll("circle")
-            .data(dataset_clear)
-            .enter()
-            .append("circle")  // Add circle svg
+        .data(dataset_clear)
+        .enter()
+            .append("circle") 
             .attr("cx", function(d) {
-                return xScale(d[0]);  // Circle's X
+                return xScale(d[0]);  
             })
-            .attr("cy", function(d) {  // Circle's Y
+            .attr("cy", function(d) {  
                 return yScale(d[1]);
             })
             .attr("r", 2)
-            .attr("fill", "white");  // radius
+            .attr("fill", "white");  
 
         // Add to X axis
         svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + (canvas_height - padding) +")")
-            .call(xAxis);
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + (canvas_height - padding) +")")
+        .call(xAxis);
 
         svg.append("text")
-            .attr("transform", "translate(260," + (canvas_height - padding + 50) +")")
-            .text("Temperature (°C)")
-            .attr("font-family","Helvetica")
-            .attr("fill","white");
+        .attr("transform", "translate(260," + (canvas_height - padding + 50) +")")
+        .text("Temperature (°C)")
+        .attr("font-family","Helvetica")
+        .attr("fill","white");
 
         // Add to Y axis
         svg.append("g")
-            .attr("class", "y axis")
-            .attr("transform", "translate(" + padding +",0)")
-            .call(yAxis);
+        .attr("class", "y axis")
+        .attr("transform", "translate(" + padding +",0)")
+        .call(yAxis);
 
         svg.append("text")
-            .attr("transform", "translate(20,320)rotate(-90)")
-            .attr("font-family","Helvetica")
-            .text("Number of trips in a day")
-            .attr("fill","white");
- 
-   //container for all buttons
+        .attr("transform", "translate(20,320)rotate(-90)")
+        .attr("font-family","Helvetica")
+        .text("Number of trips in a day")
+        .attr("fill","white");
+
+    //toggle between clear and rain/snow
     var allButtons= svg.append("g")
-                    .attr("id","allButtons");
-    //fontawesome button labels
+                        .attr("id","allButtons");
+
     var labels= ['Clear','Rain/Snow'];
 
-    //groups for each button (which will hold a rect and text)
+
     var buttonGroups= allButtons.selectAll("g.button")
-                        .data(labels)
-                        .enter()
-                        .append("g")
-                        .attr("class","button")
-                        .style("cursor","pointer")
-                        .on("click",function(d,i) {
-                            updateButtonColors(d3.select(this), d3.select(this.parentNode));
-                            rain = i;
-                            updateChart();
-                        })                        
+    .data(labels)
+    .enter()
+    .append("g")
+    .attr("class","button")
+    .style("cursor","pointer")
+    .on("click",function(d,i) {
+        updateButtonColors(d3.select(this), d3.select(this.parentNode));
+        rain = i;
+        updateChart();
+    })                        
 
-        //button width and height
-        var bWidth= 90; //button width
-        var bHeight= 30; //button height
-        var bSpace= 10; //space between buttons
-        var x0= 80; //x offset
-        var y0= 10; //y offset
+        var bWidth= 90; 
+        var bHeight= 30; 
+        var bSpace= 10; 
+        var x0= 80; 
+        var y0= 10; 
 
-        //adding a rect to each button group
-        //sidenote: rx and ry give the rects rounded corners
         buttonGroups.append("rect")
-                    .attr("class","buttonRect")
-                    .attr("width",bWidth)
-                    .attr("height",bHeight)
-                    .attr("x",function(d,i) {
-                        return x0+(bWidth+bSpace)*i;
-                    })
-                    .attr("y",y0)
-                    .attr("fill",function(d){
-                        if (d=="Clear"){
-                            return("yellow")
-                        }else{
-                            return("black")
-                        }
-                    });
+        .attr("class","buttonRect")
+        .attr("width",bWidth)
+        .attr("height",bHeight)
+        .attr("x",function(d,i) {
+            return x0+(bWidth+bSpace)*i;
+        })
+        .attr("y",y0)
+        .attr("fill",function(d){
+            if (d=="Clear"){
+                return("yellow")
+            }else{
+                return("black")
+            }
+        });
 
-        //adding text to each button group, centered within the button rect
+
         buttonGroups.append("text")
-                    .attr("class","buttonText")
-                    .attr("font-family","Helvetica")
-                    .attr("x",function(d,i) {
-                        return x0 + (bWidth+bSpace)*i + bWidth/2;
-                    })
-                    .attr("y",y0+bHeight/2)
-                    .attr("text-anchor","middle")
-                    .attr("dominant-baseline","central")
-                    .attr("fill",function(d){
-                        if (d=="Clear"){
-                            return("black")
-                        }else{
-                            return("white")
-                        }
-                    })
-                    .text(function(d) {return d;});                            
-                                
+        .attr("class","buttonText")
+        .attr("font-family","Helvetica")
+        .attr("x",function(d,i) {
+            return x0 + (bWidth+bSpace)*i + bWidth/2;
+        })
+        .attr("y",y0+bHeight/2)
+        .attr("text-anchor","middle")
+        .attr("dominant-baseline","central")
+        .attr("fill",function(d){
+            if (d=="Clear"){
+                return("black")
+            }else{
+                return("white")
+            }
+        })
+        .text(function(d) {return d;});                            
+
         var defaultColor= "black"
         var pressedColor= "yellow"
 
         function updateButtonColors(button, parent) {
             parent.selectAll("rect")
-                    .attr("fill",defaultColor)
+            .attr("fill",defaultColor)
             parent.selectAll("text")
-                    .attr("fill","white")
+            .attr("fill","white")
 
             button.select("rect")
-                    .attr("fill",pressedColor)
+            .attr("fill",pressedColor)
             button.select("text")
-                    .attr("fill","black")
+            .attr("fill","black")
         }
 
 
@@ -343,183 +337,164 @@
 
                 var circle;
                 if (rain == 1){
-                        circle = svg.selectAll("circle")
-                            .data(dataset_rain);   
-                        circle.exit().remove();
-                        svg.select("line")
-                            .transition()
-                            .duration(1000)
-                          .attr({
-                            x1: xScale(0),
-                            y1: yScale(2009),
-                            x2: xScale(10),
-                            y2: yScale(1937)
-                          });                 
-                    }else{
-                        circle = svg.selectAll("circle")
-                            .data(dataset_clear);
-                        circle.enter().append("circle");
-                        svg.select("line")
-                            .transition()
-                            .duration(1000)
-                              .attr({
-                                x1: xScale(1.6),
-                                y1: yScale(0),
-                                x2: xScale(6.5),
-                                y2: yScale(3507)
-                              })                        
-                    }
-
-                // Update circles
+                    circle = svg.selectAll("circle")
+                    .data(dataset_rain);   
+                    circle.exit().remove();
+                    svg.select("line")
+                    .transition()
+                    .duration(1000)
+                    .attr({
+                        x1: xScale(0),
+                        y1: yScale(2009),
+                        x2: xScale(10),
+                        y2: yScale(1937)
+                    });                 
+                }else{
+                    circle = svg.selectAll("circle")
+                    .data(dataset_clear);
+                    circle.enter().append("circle");
+                    svg.select("line")
+                    .transition()
+                    .duration(1000)
+                    .attr({
+                        x1: xScale(1.6),
+                        y1: yScale(0),
+                        x2: xScale(6.5),
+                        y2: yScale(3507)
+                    })                        
+                }
 
 
-
-
-                circle.transition()  // Transition from old to new
-                    .duration(1000)  // Length of animation
-                    .each("start", function() {  // Start animation
-                        d3.select(this)  // 'this' means the current element
-                            .attr("fill", "#56d58e")  // Change color
-                            .attr("r", 5);  // Change size
-                    })
+                circle.transition()  
+                    .duration(1000)  
+                    .each("start", function() {  
+                        d3.select(this)  
+                            .attr("fill", "#56d58e")  
+                            .attr("r", 5); 
+                        })
                     .delay(function(d, i) {
-                        return i / dataset_rain.length * 500;  // Dynamic delay (i.e. each item delays a little longer)
+                        return i / dataset_rain.length * 500;  
                     })
-                    //.ease("linear")  // Transition easing - default 'variable' (i.e. has acceleration), also: 'circle', 'elastic', 'bounce', 'linear'
                     .attr("cx", function(d) {
-                        return xScale(d[0]);  // Circle's X
+                        return xScale(d[0]);  
                     })
                     .attr("cy", function(d) {
-                        return yScale(d[1]);  // Circle's Y
+                        return yScale(d[1]);  
                     })
-                    .each("end", function() {  // End animation
-                        d3.select(this)  // 'this' means the current element
-                            .transition()
-                            .duration(500)
-                            .attr("fill", "white")  // Change color
-                            .attr("r", 2);  // Change radius
-                    });
+                    .each("end", function() {  
+                        d3.select(this) 
+                        .transition()
+                        .duration(500)
+                            .attr("fill", "white")  
+                            .attr("r", 2);  
+                        });
 
 
 
-        };
+                };
 
 
 
-        });
+            });
 
 
-
-        // define dimensions of graph
-        var m = [120, 80, 80, 120]; // margins
-        var w = 700 - m[1] - m[3]; // width
-        var h = 550 - m[0] - m[2]; // height
+        //chart2
+        var m = [120, 80, 80, 120]; 
+        var w = 700 - m[1] - m[3]; 
+        var h = 550 - m[0] - m[2]; 
         
-        // create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
-        var data = [31194, 39557, 37021, 66158, 69653, 84630, 91138, 94552, 91095, 88092, 59852, 35965];
-        // X scale will fit all values from data[] within pixels 0-w
+        var data = [31194, 39557, 37021, 66158, 69653, 84630, 91138, 94552, 91095, 88092, 59852, 35965]; //monthly rides
         var x = d3.scale.linear().domain([1, data.length]).range([0, w]);
-        // Y scale will fit values from 0-10 within pixels h-0 (Note the inverted domain for the y-scale: bigger is up!)
         var y = d3.scale.linear().domain([30000, 100000]).range([h, 0]);
-            // automatically determining max range can work something like this
-            // var y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
-        // create a line function that can convert data[] into x and y points
+
         var line = d3.svg.line()
-            // assign the X function to plot our line as we wish
             .x(function(d,i) { 
-                // verbose logging to show what's actually being done
-                console.log('Plotting X value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
-                // return the X coordinate where we want to plot this datapoint
                 return x(i+1); 
             })
             .y(function(d) { 
-                // verbose logging to show what's actually being done
-                console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
-                // return the Y coordinate where we want to plot this datapoint
                 return y(d); 
             })
+
             // Add an SVG element with the desired dimensions and margin.
             var graph = d3.select("#chart2").append("svg:svg")
-                  .attr("width", w + m[1] + m[3])
-                  .attr("height", h + m[0] + m[2])
-                .append("svg:g")
-                  .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+            .attr("width", w + m[1] + m[3])
+            .attr("height", h + m[0] + m[2])
+            .append("svg:g")
+            .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
             // create yAxis
             var xAxis = d3.svg.axis().scale(x).tickSize(-8).tickSubdivide(true).orient("bottom");
             // Add the x-axis.
             graph.append("svg:g")
-                  .attr("class", "x axis")
-                  .attr("transform", "translate(0," + h + ")")
-                  .call(xAxis);
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + h + ")")
+            .call(xAxis);
             // create left yAxis
             var yAxisLeft = d3.svg.axis().scale(y).ticks(4).orient("left");
             // Add the y-axis to the left
             graph.append("svg:g")
-                  .attr("class", "y axis")
-                  .attr("transform", "translate(0,0)")
-                  .call(yAxisLeft);
+            .attr("class", "y axis")
+            .attr("transform", "translate(0,0)")
+            .call(yAxisLeft);
 
             graph.append("svg:text")
-                .attr("transform", "translate(250," + (h + 50) +")")
-                .text("Month")
-                .attr("font-family","Helvetica")
-                .attr("fill","white");
+            .attr("transform", "translate(250," + (h + 50) +")")
+            .text("Month")
+            .attr("font-family","Helvetica")
+            .attr("fill","white");
 
             graph.append("svg:text")
-                .attr("transform", "translate(-70,250)rotate(-90)")
-                .attr("font-family","Helvetica")
-                .text("Number of trips in a month")
+            .attr("transform", "translate(-70,250)rotate(-90)")
+            .attr("font-family","Helvetica")
+            .text("Number of trips in a month")
             .attr("fill","white");
             
-            // Add the line by appending an svg:path element with the data line we created above
-            // do this AFTER the axes above so that the line is above the tick-lines
             graph.append("svg:path")
-                .attr("d", line(data))
-                .attr("fill","none")
-                .attr("stroke","#56d58e")
-                .attr("stroke-width",1.5);
+            .attr("d", line(data))
+            .attr("fill","none")
+            .attr("stroke","#56d58e")
+            .attr("stroke-width",1.5);
 
             graph.selectAll("circle")
-                .data(data)
-                .enter().append("circle")
-                .attr("cx",function(d,i){
-                    return(x(i+1));
-                })
-                .attr("cy",function(d){
-                    return(y(d));
-                })
-                .attr("r",5)
-                .attr("fill","#56d58e")
-                .on("mouseover", function(d,i) {
+            .data(data)
+            .enter().append("circle")
+            .attr("cx",function(d,i){
+                return(x(i+1));
+            })
+            .attr("cy",function(d){
+                return(y(d));
+            })
+            .attr("r",5)
+            .attr("fill","#56d58e")
+            .on("mouseover", function(d,i) {
 
 
-                    var tripc = String(d) + " trips";
-                    var xpos = d3.select(this).attr("cx");
-                    var ypos = d3.select(this).attr("cy");
-                    xpos = parseInt(xpos) + 120;
-                    ypos = parseInt(ypos)+ 80;
+                var tripc = String(d) + " trips";
+                var xpos = d3.select(this).attr("cx");
+                var ypos = d3.select(this).attr("cy");
+                xpos = parseInt(xpos) + 120;
+                ypos = parseInt(ypos)+ 80;
 
-                    //Update the tooltip position and value
                     d3.select("#tooltip")
-                        .style("left", xpos + "px")
-                        .style("top", ypos + "px")                 
-                        .select("#value")
-                        .text(tripc);
-               
+                    .style("left", xpos + "px")
+                    .style("top", ypos + "px")                 
+                    .select("#value")
+                    .text(tripc);
+
                     //Show the tooltip
                     d3.select("#tooltip").classed("hidden", false);
 
                 })
-                .on("mouseout", function() {
-               
+            .on("mouseout", function() {
+
                     //Hide the tooltip
                     d3.select("#tooltip").classed("hidden", true);
                     
                 });
 
 
-        bikedist = [5,  12,  16,  24,  48,  29,  29,  42,  88, 175, 225, 199, 130,  85,  72,  48,  17,   4,   0,  1];
-        bikebreaks = [0,  100,  200,  300,  400,  500,  600,  700,  800,  900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000];
+            //chart3
+            bikedist = [5,  12,  16,  24,  48,  29,  29,  42,  88, 175, 225, 199, 130,  85,  72,  48,  17,   4,   0,  1];
+            bikebreaks = [0,  100,  200,  300,  400,  500,  600,  700,  800,  900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000];
 
             var w = 600;
             var h = 500;
@@ -533,53 +508,53 @@
             .attr("height", h);
 
             svg.selectAll("rect")
-               .data(bikedist)
-               .enter()
-               .append("rect")
-               .attr("x", function(d, i) {
-                    return i * ((w-2*margin) / bikedist.length) + ((w-2*margin) / bikedist.length - barPadding) / 2 + margin;
-               })
-               .attr("y", function(d) {
-                    return h - (d * 1.5) - 60;
-               })
-               .attr("width", (w-2*margin) / bikedist.length - barPadding)
-               .attr("height", function(d) {
-                    return d * 1.5;
-               })
-               .attr("fill", "#56d58e");
+            .data(bikedist)
+            .enter()
+            .append("rect")
+            .attr("x", function(d, i) {
+                return i * ((w-2*margin) / bikedist.length) + ((w-2*margin) / bikedist.length - barPadding) / 2 + margin;
+            })
+            .attr("y", function(d) {
+                return h - (d * 1.5) - 60;
+            })
+            .attr("width", (w-2*margin) / bikedist.length - barPadding)
+            .attr("height", function(d) {
+                return d * 1.5;
+            })
+            .attr("fill", "#56d58e");
 
             svg.selectAll("text")
-               .data(bikedist)
-               .enter()
-               .append("text")
-               .text(function(d) {
-                    return d;
-               })
-               .attr("text-anchor", "middle")
-               .attr("x", function(d, i) {
-                    return i * ((w-2*margin) / bikedist.length) + ((w-2*margin) / bikedist.length - barPadding) / 2 + margin + 10;
-               })
-               .attr("y", function(d) {
-                    return h - (d * 1.5) - 70;
-               })
-               .attr("font-family", "sans-serif")
-               .attr("font-size", "11px")
-               .attr("fill", "white");
+            .data(bikedist)
+            .enter()
+            .append("text")
+            .text(function(d) {
+                return d;
+            })
+            .attr("text-anchor", "middle")
+            .attr("x", function(d, i) {
+                return i * ((w-2*margin) / bikedist.length) + ((w-2*margin) / bikedist.length - barPadding) / 2 + margin + 10;
+            })
+            .attr("y", function(d) {
+                return h - (d * 1.5) - 70;
+            })
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "11px")
+            .attr("fill", "white");
 
             var x1 = d3.scale.linear().domain([d3.min(bikebreaks),d3.max(bikebreaks)]).range([0, (w-2*margin)]);           
             var xAxis1 = d3.svg.axis().scale(x1).tickSize(8).ticks(11).orient("bottom");
             // Add the x-axis.
             svg.append("g")
-                  .attr("class", "x axis")
-                  .attr("transform", "translate(" + (margin+12) + "," + (h-60) + ")")
-                  .call(xAxis1);
+            .attr("class", "x axis")
+            .attr("transform", "translate(" + (margin+12) + "," + (h-60) + ")")
+            .call(xAxis1);
 
             svg.append("text")
-                .attr("transform", "translate(180," + (h-10) +")")
-                .text("Distance travelled for each bike in a year (km)")
-                .attr("font-family","Helvetica")
-                .attr("fill","white");
+            .attr("transform", "translate(180," + (h-10) +")")
+            .text("Distance travelled for each bike in a year (km)")
+            .attr("font-family","Helvetica")
+            .attr("fill","white");
 
-</script>
-</body>
-</html>
+        </script>
+    </body>
+    </html>

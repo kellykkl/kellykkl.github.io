@@ -8,9 +8,9 @@
     <meta name="keywords" content="" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <style type="text/css">
-      html {
+    html {
         background-color: #121212; 
-      }
+    }
 
     .bkroute{
         color: 'yellow';
@@ -18,145 +18,139 @@
         opacity: .6;
     }
 
-.container{
-    display: flex;
-}
-.fixed{
-    width: 900px;
-}
-.flex-item{
-    flex-grow: 1;
-}
+    .container{
+        display: flex;
+    }
+    .fixed{
+        width: 900px;
+    }
+    .flex-item{
+        flex-grow: 1;
+    }
 
-  </style>
-    <meta charset="utf-8" />
-    <link 
-        rel="stylesheet" 
-        href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"
-    />
+</style>
+<meta charset="utf-8" />
+<link 
+rel="stylesheet" 
+href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"
+/>
 </head>
 <body class="is-preload">
 
-      <header id="header">
-        <a class="logo" href="index.html"></a>
-        <nav>
-          <a href="#menu">Menu</a>
-        </nav>
-      </header>
+  <header id="header">
+    <a class="logo" href="index.html"></a>
+    <nav>
+      <a href="#menu">Menu</a>
+  </nav>
+</header>
 
-    <!-- Nav -->
-      <nav id="menu">
-        <ul class="links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="stations.html">Station Data</a></li>
-          <li><a href="working.html">Trip Data</a></li>
-          <li><a href="weather.html">Graphs and Charts</a></li>
-        </ul>
-      </nav>
+<!-- Nav -->
+<nav id="menu">
+    <ul class="links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="stations.html">Station Data</a></li>
+      <li><a href="working.html">Trip Data</a></li>
+      <li><a href="weather.html">Graphs and Charts</a></li>
+  </ul>
+</nav>
 
-    <div class="container" style="background-color: #121212">
-        <div id="map" class="fixed" style="width: 900px; height: 650px; position: relative; left: 50px"></div>
-        <div id="expl" class="flex-item">
+<div class="container" style="background-color: #121212">
+    <div id="map" class="fixed" style="width: 900px; height: 650px; position: relative; left: 50px"></div>
+    <div id="expl" class="flex-item">
 
-                <div class="content" style="width:200px; position: relative; left: 100px; top: 50px;" >
-                    <section>
-                    <h3 style="color: #F2F2F2">Trip Data</h3>
-                    <p style="color: #F2F2F2">These are the Indego bike share trips made over the course of March 2017. Red lines are for the first half of the journey of the user (leaving), while blue lines are for the second half (arriving). You can toggle between weekend and weekday trips, as well as subset the data according to the time of the day. (You should be able to see that more cyclists arrive in the city center in the morning, and leave in the night.) Because of the large amount of data, it can be quite slow to load - please be patient!</p>
-                    </section>
-                </div>
-
+        <div class="content" style="width:200px; position: relative; left: 100px; top: 50px;" >
+            <section>
+                <h3 style="color: #F2F2F2">Trip Data</h3>
+                <p style="color: #F2F2F2">These are the Indego bike share trips made over the course of March 2017. Red lines are for the first half of the journey of the user (leaving), while blue lines are for the second half (arriving). You can toggle between weekend and weekday trips, as well as subset the data according to the time of the day. (You should be able to see that more cyclists arrive in the city center in the morning, and leave in the night.) Because of the large amount of data, it can be quite slow to load - please be patient!</p>
+            </section>
         </div>
-    </div>
-
-
-    <div id="vis" style="position:relative; top: -140px; left:50px; float:left; height: 100px;"></div>
-
-    <div id="option" style="position:relative; top: -60px; left:50px; float:left;">
-        <input name="updateButton"
-               type="button"
-               value="Update"
-               onclick="updateData()"
-            />
-    </div>
-
-
-
-      <script src="assets/js/jquery.min.js"></script>
-      <script src="assets/js/browser.min.js"></script>
-      <script src="assets/js/breakpoints.min.js"></script>
-      <script src="assets/js/util.js"></script>
-      <script src="assets/js/main.js"></script>
 
     </div>
-    <script src="simpleD3Slider.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script
-        src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js">
-    </script>
+</div>
 
 
-    <script>
-        var map = L.map('map').setView([39.9525, -75.1962], 13);
-        mapLink = 
-            '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-        
-        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-            subdomains: 'abcd',
-            maxZoom: 19
-          }).addTo(map);
+<div id="vis" style="position:relative; top: -140px; left:50px; float:left; height: 100px;"></div>
 
-        stnroutes = []
+<div id="option" style="position:relative; top: -60px; left:50px; float:left;">
+    <input name="updateButton"
+    type="button"
+    value="Update"
+    onclick="updateData()"
+    />
+</div>
 
-        d3.json("/data/stn.json",function(stn){
-            stn.forEach(function(d){
-                stnroutes.push([d.start_station,d.end_station,d.dec]);
+
+
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="simpleD3Slider.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+
+
+<script>
+    var map = L.map('map').setView([39.9525, -75.1962], 13);
+    mapLink = 
+    '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+
+    L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+    }).addTo(map);
+
+    stnroutes = []
+
+    d3.json("/data/stn.json",function(stn){
+        stn.forEach(function(d){
+            stnroutes.push([d.start_station,d.end_station,d.dec]);
+        });
+
+            d3.json("/data/Q1_month2.json", function(bike){
+
+                bike.forEach(function(d){
+
+                    var bikeroute = [];
+                    start = String(d.start_station);
+                    end = String(d.end_station);
+
+                    for (var i=0; i<stnroutes.length; i++){
+                        if (start == stnroutes[i][0] && end == stnroutes[i][1] && d.wDay == 1){
+                            for (var j=0; j<stnroutes[i][2].length; j++){
+                                bikeroute.push([stnroutes[i][2][j].lat+0.0004*(Math.random()-0.5),stnroutes[i][2][j].lon+0.0004*(Math.random()-0.5)]);
+                            };
+
+                            var halflength = Math.floor(bikeroute.length/2-1);
+                            var polyline = L.polyline(bikeroute.slice(0,halflength+1), {color: 'red', //red for departing
+                                weight: 0.8 + wkend*1.5, //weekend lines made heavier to compensate for fact that there are fewer weekends
+                                opacity: .2,}).addTo(map);
+                            var polyline = L.polyline(bikeroute.slice(halflength), {color: 'blue', //blue for arriving
+                                weight: 0.8 + wkend*1.5,
+                                opacity: .2,}).addTo(map); 
+
+                            break;
+                        }
+                    }                
+                })
+
             });
 
-            d3.json("/data/Q1_month2.json", function(bike){ //Q1_2 for full data, small2 for small data...just do 1 month. drop unnecc columns
-
-            bike.forEach(function(d){
-
-                var bikeroute = [];
-                start = String(d.start_station);
-                end = String(d.end_station);
-                
-                for (var i=0; i<stnroutes.length; i++){
-                    if (start == stnroutes[i][0] && end == stnroutes[i][1] && d.wDay == 1){
-                        for (var j=0; j<stnroutes[i][2].length; j++){
-                            bikeroute.push([stnroutes[i][2][j].lat+0.0004*(Math.random()-0.5),stnroutes[i][2][j].lon+0.0004*(Math.random()-0.5)]);
-                        };
-
-                        var halflength = Math.floor(bikeroute.length/2-1);
-                        var polyline = L.polyline(bikeroute.slice(0,halflength+1), {color: 'red',
-                                                                    weight: 0.8 + wkend*1.5,
-                                                                    opacity: .2,}).addTo(map);
-                        var polyline = L.polyline(bikeroute.slice(halflength), {color: 'blue',
-                                                                    weight: 0.8 + wkend*1.5,
-                                                                    opacity: .2,}).addTo(map); 
-
-                        break;
-                    }
-                }                
-            })
-
-        });
-
         });
 
 
-
-
-    var svg2 = d3.select("#vis").append("svg").attr("width", 580).attr("height", 700),
-        slider1 = new simpleSlider();
-
-
+    //user interactivity controls
 
     var starthr = 0;
     var startmin = 0;
     var endhr = 0;
     var endmin = 0;
     var wkend = 0;
+
+    var svg2 = d3.select("#vis").append("svg").attr("width", 580).attr("height", 700),
+    slider1 = new simpleSlider();
 
     slider1.width(500).x(30).y(100).valueL(0.01).valueH(1.0).event(function(){
         starthr = Math.floor(24*slider1.valueL())
@@ -166,97 +160,93 @@
     });
 
     svg2.append("text")
-        .attr("x", 30)             
-        .attr("y", 80)
-        .style("font-size", "20px") 
-        .style("font-family", "Helvetica") 
-        .style("fill","#FFFFFF")
-        .text("Time of Day");
+    .attr("x", 30)             
+    .attr("y", 80)
+    .style("font-size", "20px") 
+    .style("font-family", "Helvetica") 
+    .style("fill","#FFFFFF")
+    .text("Time of Day");
 
     svg2.call(slider1);
 
-    //container for all buttons
+    //toggle between weekend and weekday
     var allButtons= svg2.append("g")
-                    .attr("id","allButtons") 
-                    .attr("x", 30)             
-                    .attr("y", 10)
-    //fontawesome button labels
+    .attr("id","allButtons") 
+    .attr("x", 30)             
+    .attr("y", 10)
     var labels= ['Weekday','Weekend'];
 
-    //groups for each button (which will hold a rect and text)
     var buttonGroups= allButtons.selectAll("g.button")
-                        .data(labels)
-                        .enter()
-                        .append("g")
-                        .attr("class","button")
-                        .style("cursor","pointer")
-                        .on("click",function(d,i) {
-                            updateButtonColors(d3.select(this), d3.select(this.parentNode))
-                            wkend = i;
-                        })                        
+    .data(labels)
+    .enter()
+    .append("g")
+    .attr("class","button")
+    .style("cursor","pointer")
+    .on("click",function(d,i) {
+        updateButtonColors(d3.select(this), d3.select(this.parentNode))
+        wkend = i;
+    })                        
 
-        //button width and height
+
         var bWidth= 80; //button width
         var bHeight= 25; //button height
         var bSpace= 10; //space between buttons
         var x0= 30; //x offset
         var y0= 15; //y offset
 
-        //adding a rect to each button group
-        //sidenote: rx and ry give the rects rounded corners
-        buttonGroups.append("rect")
-                    .attr("class","buttonRect")
-                    .attr("width",bWidth)
-                    .attr("height",bHeight)
-                    .attr("x",function(d,i) {
-                        return x0+(bWidth+bSpace)*i;
-                    })
-                    .attr("y",y0)
-                    .attr("fill",function(d){
-                        if (d=="Weekday"){
-                            return("yellow")
-                        }else{
-                            return("black")
-                        }
-                    });
 
-        //adding text to each button group, centered within the button rect
+        buttonGroups.append("rect")
+        .attr("class","buttonRect")
+        .attr("width",bWidth)
+        .attr("height",bHeight)
+        .attr("x",function(d,i) {
+            return x0+(bWidth+bSpace)*i;
+        })
+        .attr("y",y0)
+        .attr("fill",function(d){
+            if (d=="Weekday"){
+                return("yellow")
+            }else{
+                return("black")
+            }
+        });
+
         buttonGroups.append("text")
-                    .attr("class","buttonText")
-                    .attr("font-family","Helvetica")
-                    .attr("x",function(d,i) {
-                        return x0 + (bWidth+bSpace)*i + bWidth/2;
-                    })
-                    .attr("y",y0+bHeight/2)
-                    .attr("text-anchor","middle")
-                    .attr("dominant-baseline","central")
-                    .attr("fill",function(d){
-                        if (d=="Weekday"){
-                            return("black")
-                        }else{
-                            return("white")
-                        }
-                    })
-                    .text(function(d) {return d;})                            
-                                
+        .attr("class","buttonText")
+        .attr("font-family","Helvetica")
+        .attr("x",function(d,i) {
+            return x0 + (bWidth+bSpace)*i + bWidth/2;
+        })
+        .attr("y",y0+bHeight/2)
+        .attr("text-anchor","middle")
+        .attr("dominant-baseline","central")
+        .attr("fill",function(d){
+            if (d=="Weekday"){
+                return("black")
+            }else{
+                return("white")
+            }
+        })
+        .text(function(d) {return d;})                            
+
         var defaultColor= "black"
         var pressedColor= "yellow"
 
         function updateButtonColors(button, parent) {
             parent.selectAll("rect")
-                    .attr("fill",defaultColor)
+            .attr("fill",defaultColor)
             parent.selectAll("text")
-                    .attr("fill","white")
+            .attr("fill","white")
 
             button.select("rect")
-                    .attr("fill",pressedColor)
+            .attr("fill",pressedColor)
             button.select("text")
-                    .attr("fill","black")
+            .attr("fill","black")
         }
 
 
-    var svg3 = d3.select("#btn").append("svg").attr("width", 200).attr("height", 200);
-    svg3.append("rect")
+        var svg3 = d3.select("#btn").append("svg").attr("width", 200).attr("height", 200);
+        svg3.append("rect")
         .attr("class","updatebtn")
         .attr("x",0)
         .attr("y",30)
@@ -264,7 +254,7 @@
         .attr("width",50)
         .style("fill","white")
 
-    svg3.append("text")
+        svg3.append("text")
         .attr("x", 5)             
         .attr("y", 45)
         .style("font-size", "12px") 
@@ -279,7 +269,7 @@
 
                 bike.forEach(function(d){
 
-                    if (((d.starthr == starthr && d.startmin >= startmin) || d.starthr > starthr) && ((d.starthr == endhr && d.startmin <= endmin) || d.starthr < endhr) && (d.wDay != wkend)){
+                    if (((d.starthr == starthr && d.startmin >= startmin) || d.starthr > starthr) && ((d.starthr == endhr && d.startmin <= endmin) || d.starthr < endhr) && (d.wDay != wkend)){ //subsetting conditions
                         var bikeroute = [];
                         start = String(d.start_station);
                         end = String(d.end_station);
@@ -291,10 +281,10 @@
                                 };
                                 var halflength = Math.floor(bikeroute.length/2-1);
                                 var polyline = L.polyline(bikeroute.slice(0,halflength+1), {color: 'red',
-                                                                            weight: 0.8 + wkend*1.5,
-                                                                            opacity: .2,}).addTo(map);
+                                    weight: 0.8 + wkend*1.5,
+                                    opacity: .2,}).addTo(map);
                                 var polyline = L.polyline(bikeroute.slice(halflength), {color: 'blue',
-                                                                            weight: 0.8 + wkend*1.5, //to compensate for having less weekends than wkdays
+                                                                            weight: 0.8 + wkend*1.5,
                                                                             opacity: .2,}).addTo(map); 
 
                                 break;
@@ -302,7 +292,7 @@
                         } 
                     }
 
-               
+
                 })
 
             });
@@ -310,18 +300,18 @@
 
 
 
-    function clearMap() {
-        for(i in map._layers) {
-            if(map._layers[i]._path != undefined) {
-                try {
-                    map.removeLayer(map._layers[i]);
-                }
-                catch(e) {
-                    console.log("problem with " + e + map._layers[i]);
+        function clearMap() {
+            for(i in map._layers) {
+                if(map._layers[i]._path != undefined) {
+                    try {
+                        map.removeLayer(map._layers[i]);
+                    }
+                    catch(e) {
+                        console.log("problem with " + e + map._layers[i]);
+                    }
                 }
             }
         }
-    }
 
     </script>
 

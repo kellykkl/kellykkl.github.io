@@ -8,193 +8,187 @@
     <meta name="keywords" content="" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <style type="text/css">
-      html {
+    html {
         background-color: #121212; 
-      }
+    }
 
     .bkroute{
         color: 'yellow';
         weight: 2;
         opacity: .6;
     }
-            #tooltip {
-                position: absolute;
-                width: auto;
-                height: auto;
-                padding: 10px;
-                background-color: black;
-                pointer-events: none;
-                opacity: 0.75;
-            }
-            #value {
-                color: white;
-            }            
-            #tooltip.hidden {
-                display: none;
-            }
-            
-            #tooltip p {
-                margin: 0;
-                font-family: Helvetica;
-                font-size: 16px;
-                color: white;
-                line-height: 20px;
-            }
+    #tooltip {
+        position: absolute;
+        width: auto;
+        height: auto;
+        padding: 10px;
+        background-color: black;
+        pointer-events: none;
+        opacity: 0.75;
+    }
+    #value {
+        color: white;
+    }            
+    #tooltip.hidden {
+        display: none;
+    }
 
-.container{
-    display: flex;
-}
-.fixed{
-    width: 900px;
-}
-.flex-item{
-    flex-grow: 1;
-}
+    #tooltip p {
+        margin: 0;
+        font-family: Helvetica;
+        font-size: 16px;
+        color: white;
+        line-height: 20px;
+    }
 
-  </style>
-    <meta charset="utf-8" />
-    <link 
-        rel="stylesheet" 
-        href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"
-    />
+    .container{
+        display: flex;
+    }
+    .fixed{
+        width: 900px;
+    }
+    .flex-item{
+        flex-grow: 1;
+    }
+
+</style>
+<meta charset="utf-8" />
+<link 
+rel="stylesheet" 
+href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"
+/>
 </head>
 <body class="is-preload">
 
-      <header id="header">
-        <a class="logo" href="index.html"></a>
-        <nav>
-          <a href="#menu">Menu</a>
-        </nav>
-      </header>
+  <header id="header">
+    <a class="logo" href="index.html"></a>
+    <nav>
+      <a href="#menu">Menu</a>
+  </nav>
+</header>
 
-    <!-- Nav -->
-      <nav id="menu">
-        <ul class="links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="stations.html">Station Data</a></li>
-          <li><a href="working.html">Trip Data</a></li>
-          <li><a href="weather.html">Graphs and Charts</a></li>
-        </ul>
-      </nav>
+<nav id="menu">
+    <ul class="links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="stations.html">Station Data</a></li>
+      <li><a href="working.html">Trip Data</a></li>
+      <li><a href="weather.html">Graphs and Charts</a></li>
+  </ul>
+</nav>
 
-    <div class="container" style="background-color: #121212">
-        <div id="map" class="fixed" style="width: 900px; height: 650px; position: relative; left: 50px"></div>
-        <div id="expl" class="flex-item">
+<div class="container" style="background-color: #121212">
+    <div id="map" class="fixed" style="width: 900px; height: 650px; position: relative; left: 50px"></div>
+    <div id="expl" class="flex-item">
 
-                <div class="content" style="width:200px; position: relative; left: 100px; top: 50px;" >
-                    <section>
-                    <h3 style="color: #F2F2F2">Station Data</h3>
-                    <p style="color: #F2F2F2">Pictured on the map are all the Indego Bike Sharing stations. Assuming that bikes start out evenly 
-                    distributed at the start of the day, this visualization allows us to see how the number of bikes at each station grow and shrink throughout a typical day. Click on the stations to see the pattern of net arrivals at each station over the week. As per the map showing trip data, blue represents high (net) arrival and red represents high (net) departure.</p>
-                    </section>
-                </div>
-
+        <div class="content" style="width:200px; position: relative; left: 100px; top: 50px;" >
+            <section>
+                <h3 style="color: #F2F2F2">Station Data</h3>
+                <p style="color: #F2F2F2">Pictured on the map are all the Indego Bike Sharing stations. Assuming that bikes start out evenly 
+                distributed at the start of the day, this visualization allows us to see how the number of bikes at each station grow and shrink throughout a typical day. Click on the stations to see the pattern of net arrivals at each station over the week. As per the map showing trip data, blue represents high (net) arrival and red represents high (net) departure.</p>
+            </section>
         </div>
+
     </div>
-        <div id="vis" style="position:relative; top: -80px; left:50px; float:left; height: 100px"></div>
-        <div id="tooltip" class="hidden">
-<!--             <p><span id="value">100</span></p> -->
-            <div id="value"></div>
-        </div>
+</div>
+<div id="vis" style="position:relative; top: -80px; left:50px; float:left; height: 100px"></div>
+<div id="tooltip" class="hidden">
+    <div id="value"></div>
+</div>
 
 
-      <script src="assets/js/jquery.min.js"></script>
-      <script src="assets/js/browser.min.js"></script>
-      <script src="assets/js/breakpoints.min.js"></script>
-      <script src="assets/js/util.js"></script>
-      <script src="assets/js/main.js"></script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://kellykkl.github.io/simpleD3Slider1.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
 
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="http://kellykkl.github.io/simpleD3Slider1.js"></script>
-    <script
-        src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js">
-    </script>
-    <script type="text/javascript">
-    
-        var map = L.map('map').setView([39.9525, -75.1962], 13);
-        mapLink = 
-            '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-        
-        L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-            subdomains: 'abcd',
-            maxZoom: 19
-          }).addTo(map);
-                
-    /* Initialize the SVG layer */
+<script type="text/javascript">
+
+    var map = L.map('map').setView([39.9525, -75.1962], 13);
+    mapLink = 
+    '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+
+    L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+    }).addTo(map);
+
     map._initPathRoot()    
 
-    /* We simply pick up the SVG from the map object */
     var svg = d3.select("#map").select("svg"),
     g = svg.append("g");
 
     var stnsize = []
     var allsizes = [];
     d3.json("/data/stncoords.json", function(collection) {
-        
+
 
         collection.forEach(function(d) {
             d.LatLng = new L.LatLng(d.start_lat,
-                                    d.start_lon)
-            stnsize[String(d.start_station)] = 7; //make a dict of station ids and their corresponding sizes
+                d.start_lon)
+            stnsize[String(d.start_station)] = 7; 
             allsizes[String(d.start_station)] = [7];
         })
         
 
 
         var feature = g.selectAll("circle")
-            .data(collection)
-            .enter().append("circle")
-            .style("stroke", "black")  
-            .style("opacity", .6) 
-            .style("fill", "red")
-            .attr("r", 7)  
-            .on("mouseover", function(d) {
+        .data(collection)
+        .enter().append("circle")
+        .style("stroke", "black")  
+        .style("opacity", .6) 
+        .style("fill", "red")
+        .attr("r", 7)  
+        .on("mouseover", function(d) {
 
-                var xPosition = d3.event.x;
-                var yPosition = d3.event.y;
-                var name = d.name;
+            var xPosition = d3.event.x;
+            var yPosition = d3.event.y;
+            var name = d.name;
 
                 //Update the tooltip position and value
                 d3.select("#tooltip")
-                    .style("left", xPosition + "px")
-                    .style("top", yPosition + "px")                     
-                    .select("#value")
-                    .text(name)
-                    .style('fill','white');
-           
+                .style("left", xPosition + "px")
+                .style("top", yPosition + "px")                     
+                .select("#value")
+                .text(name)
+                .style('fill','white');
+
                 //Show the tooltip
                 d3.select("#tooltip").classed("hidden", false);
 
             })
-            .on("mouseout", function() {
-           
+        .on("mouseout", function() {
+
                 //Hide the tooltip
                 d3.select("#tooltip").classed("hidden", true);
                 
             })
-            .on("click", function(d) {
+        .on("click", function(d) {
 
 
                 //Update the tooltip position and value
                 d3.select("#tooltip")
-                    .select("#value")
-                    .text("");
+                .select("#value")
+                .text("");
 
                 d3.select("#tooltip")
-                    .select("#value")
-                    .append("svg")
-                    .attr("width",500)
-                    .attr("height",170)
-                    .attr("x",30)
-                    .attr("y",0);
-           
+                .select("#value")
+                .append("svg")
+                .attr("width",500)
+                .attr("height",170)
+                .attr("x",30)
+                .attr("y",0);
+
                 var svg1 = d3.select("#tooltip")
-                            .select("#value")
-                            .select("svg");
+                .select("#value")
+                .select("svg");
 
                 d3.json("/data/stationuse.json",function(statuse){
-                    
+
                     var currstat = [];
                     var netarr = [];
                     statuse.forEach(function(m){
@@ -213,61 +207,61 @@
                     console.log(currstat);
 
                     svg1.append("rect")
-                        .attr("x",offset)
-                        .attr("y",18+offsety)
-                        .attr("width",24*18)
-                        .attr("height",7*18)
-                        .attr("fill", function(c){
-                            val = Math.pow((0-min)/(max-min),2);
-                            var h = val * 240;
-                            return "hsl(" + h + ", 100%, 50%)";                           
-                        });
+                    .attr("x",offset)
+                    .attr("y",18+offsety)
+                    .attr("width",24*18)
+                    .attr("height",7*18)
+                    .attr("fill", function(c){
+                        val = Math.pow((0-min)/(max-min),2);
+                        var h = val * 240;
+                        return "hsl(" + h + ", 100%, 50%)";                           
+                    });
 
                     var days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
                     for(i=1;i<8;i++){
                         svg1.append("text")
-                            .attr("x",19)
-                            .attr("y",18*i+14+offsety)
-                            .style("font-size", "10px") 
-                            .style("font-family", "Helvetica") 
-                            .style("fill","#FFFFFF")
-                            .text(function(){
-                                return(days[i-1]);
-                            })
+                        .attr("x",19)
+                        .attr("y",18*i+14+offsety)
+                        .style("font-size", "10px") 
+                        .style("font-family", "Helvetica") 
+                        .style("fill","#FFFFFF")
+                        .text(function(){
+                            return(days[i-1]);
+                        })
                     };
 
                     for(i=1;i<25;i++){
                         console.log("HI");
                         svg1.append("text")
-                            .attr("x",45+18*i)
-                            .attr("y",20)
-                            .style("font-size", "10px") 
-                            .style("font-family", "Helvetica") 
-                            .style("fill","#FFFFFF")
-                            .text(String(i));
+                        .attr("x",45+18*i)
+                        .attr("y",20)
+                        .style("font-size", "10px") 
+                        .style("font-family", "Helvetica") 
+                        .style("fill","#FFFFFF")
+                        .text(String(i));
                     };
 
 
 
                     svg1.selectAll("rect")
-                        .data(currstat)
-                        .enter().append("rect")
-                        .attr("x",function(a){
+                    .data(currstat)
+                    .enter().append("rect")
+                    .attr("x",function(a){
                             return(a[1]*18+offset); //hr
                         })
-                        .attr("y",function(b){
+                    .attr("y",function(b){
                             return(b[0]*18+offsety) //day
                         })
-                        .attr("width",18)
-                        .attr("height",18)
-                        .attr("stroke","white")
-                        .attr("stroke-width",0.9)
-                        .attr("fill",function(c){
+                    .attr("width",18)
+                    .attr("height",18)
+                    .attr("stroke","white")
+                    .attr("stroke-width",0.9)
+                    .attr("fill",function(c){
 
-                            val = (c[2]-min)/(max-min);
-                            var h = val * 240;
-                            return "hsl(" + h + ", 100%, 50%)";                           
-                        });
+                        val = (c[2]-min)/(max-min);
+                        var h = val * 240;
+                        return "hsl(" + h + ", 100%, 50%)";                           
+                    });
                 });
 
 
@@ -281,12 +275,12 @@
 
         function update() {
             feature.attr("transform", 
-            function(d) { 
-                return "translate("+ 
+                function(d) { 
+                    return "translate("+ 
                     map.latLngToLayerPoint(d.LatLng).x +","+ 
                     map.latLngToLayerPoint(d.LatLng).y +")";
                 }
-            )
+                )
         }
 
 
@@ -319,16 +313,13 @@
             }            
 
 
-  
-
         })
 
 
-
-    var svg2 = d3.select("#vis").append("svg").attr("width", 1000).attr("height", 700),
+        var svg2 = d3.select("#vis").append("svg").attr("width", 1000).attr("height", 700),
         slider1 = new simpleSlider();
 
-    svg2.append("text")
+        svg2.append("text")
         .attr("x", 30)             
         .attr("y", 20)
         .style("font-size", "20px") 
@@ -336,29 +327,21 @@
         .style("fill","#FFFFFF")
         .text("Time of Day");
 
-    slider1.width(500).x(30).y(40).value(0.01).event(function(){
+        slider1.width(500).x(30).y(40).value(0.01).event(function(){
             svg.selectAll("circle")
             .attr("r", function(d){
                 return(allsizes[d.start_station][Math.floor(slider1.value()*24*60)])
             });           
-    });
+        });
 
-
-
-    svg2.call(slider1);
-
-
-
-
-
-
+        svg2.call(slider1);
 
 
     })  
 
 
 
-    </script>
+</script>
 
 
 
