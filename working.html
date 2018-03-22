@@ -2,9 +2,14 @@
 <html>
 <head>
     <title>Simple Leaflet Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="assets/css/main.css" />
     <style type="text/css">
       html {
-        background-color: #262626; 
+        background-color: #121212; 
       }
 
     .bkroute{
@@ -13,7 +18,15 @@
         opacity: .6;
     }
 
-
+.container{
+    display: flex;
+}
+.fixed{
+    width: 900px;
+}
+.flex-item{
+    flex-grow: 1;
+}
 
   </style>
     <meta charset="utf-8" />
@@ -22,16 +35,43 @@
         href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"
     />
 </head>
-<body>
+<body class="is-preload">
+
+      <header id="header">
+        <a class="logo" href="index.html"></a>
+        <nav>
+          <a href="#menu">Menu</a>
+        </nav>
+      </header>
+
+    <!-- Nav -->
+      <nav id="menu">
+        <ul class="links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="working.html">Trip Data</a></li>
+          <li><a href="stations.html">Station Data</a></li>
+          <li><a href="weather.html">Graphs and Charts</a></li>
+        </ul>
+      </nav>
+
+    <div class="container" style="background-color: #121212">
+        <div id="map" class="fixed" style="width: 900px; height: 650px; position: relative; left: 50px"></div>
+        <div id="expl" class="flex-item">
+
+                <div class="content" style="width:200px; position: relative; left: 100px; top: 50px;" >
+                    <section>
+                    <h3 style="color: #F2F2F2">Trip Data</h3>
+                    <p style="color: #F2F2F2">These are the Indego bike share trips made over the course of March 2017. Red lines are for the first half of the journey of the user (leaving), while blue lines are for the second half (arriving). You can toggle between weekend and weekday trips, as well as subset the data according to the time of the day. (You should be able to see that more cyclists arrive in the city center in the morning, and leave in the night.) Because of the large amount of data, it can be quite slow to load - please be patient!</p>
+                    </section>
+                </div>
+
+        </div>
+    </div>
 
 
+    <div id="vis" style="position:relative; top: -140px; left:50px; float:left; height: 100px;"></div>
 
-    <div id="map" style="width: 900px; height: 600px"></div>
-
-
-    <div id="vis" style="position:relative; top: -140px; float:left;"></div>
-
-    <div id="option" style="position:relative; top: -50px; float:left;">
+    <div id="option" style="position:relative; top: -60px; left:50px; float:left;">
         <input name="updateButton"
                type="button"
                value="Update"
@@ -41,7 +81,11 @@
 
 
 
-
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/browser.min.js"></script>
+      <script src="assets/js/breakpoints.min.js"></script>
+      <script src="assets/js/util.js"></script>
+      <script src="assets/js/main.js"></script>
 
     </div>
     <script src="simpleD3Slider.js"></script>
@@ -69,7 +113,7 @@
                 stnroutes.push([d.start_station,d.end_station,d.dec]);
             });
 
-            d3.json("/data/Q1_month.json", function(bike){ //Q1_2 for full data, small2 for small data...just do 1 month. drop unnecc columns
+            d3.json("/data/Q1_month2.json", function(bike){ //Q1_2 for full data, small2 for small data...just do 1 month. drop unnecc columns
 
             bike.forEach(function(d){
 
@@ -78,7 +122,7 @@
                 end = String(d.end_station);
                 
                 for (var i=0; i<stnroutes.length; i++){
-                    if (start == stnroutes[i][0] && end == stnroutes[i][1]){
+                    if (start == stnroutes[i][0] && end == stnroutes[i][1] && d.wDay == 1){
                         for (var j=0; j<stnroutes[i][2].length; j++){
                             bikeroute.push([stnroutes[i][2][j].lat+0.0004*(Math.random()-0.5),stnroutes[i][2][j].lon+0.0004*(Math.random()-0.5)]);
                         };
@@ -168,7 +212,13 @@
                         return x0+(bWidth+bSpace)*i;
                     })
                     .attr("y",y0)
-                    .attr("fill","black")
+                    .attr("fill",function(d){
+                        if (d=="Weekday"){
+                            return("yellow")
+                        }else{
+                            return("black")
+                        }
+                    });
 
         //adding text to each button group, centered within the button rect
         buttonGroups.append("text")
@@ -180,7 +230,13 @@
                     .attr("y",y0+bHeight/2)
                     .attr("text-anchor","middle")
                     .attr("dominant-baseline","central")
-                    .attr("fill","white")
+                    .attr("fill",function(d){
+                        if (d=="Weekday"){
+                            return("black")
+                        }else{
+                            return("white")
+                        }
+                    })
                     .text(function(d) {return d;})                            
                                 
         var defaultColor= "black"
@@ -219,7 +275,7 @@
         function updateData(){
             clearMap();
 
-            d3.json("/data/Q1_month.json", function(bike){
+            d3.json("/data/Q1_month2.json", function(bike){
 
                 bike.forEach(function(d){
 
