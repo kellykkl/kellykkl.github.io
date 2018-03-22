@@ -26,7 +26,9 @@
                 pointer-events: none;
                 opacity: 0.75;
             }
-            
+            #value {
+                color: white;
+            }            
             #tooltip.hidden {
                 display: none;
             }
@@ -91,7 +93,8 @@
     </div>
         <div id="vis" style="position:relative; top: -80px; left:50px; float:left; height: 100px"></div>
         <div id="tooltip" class="hidden">
-            <p><span id="value">100</span></p>
+<!--             <p><span id="value">100</span></p> -->
+            <div id="value"></div>
         </div>
 
 
@@ -137,6 +140,8 @@
             allsizes[String(d.start_station)] = [7];
         })
         
+
+
         var feature = g.selectAll("circle")
             .data(collection)
             .enter().append("circle")
@@ -155,7 +160,8 @@
                     .style("left", xPosition + "px")
                     .style("top", yPosition + "px")                     
                     .select("#value")
-                    .text(name);
+                    .text(name)
+                    .style('fill','white');
            
                 //Show the tooltip
                 d3.select("#tooltip").classed("hidden", false);
@@ -166,6 +172,108 @@
                 //Hide the tooltip
                 d3.select("#tooltip").classed("hidden", true);
                 
+            })
+            .on("click", function(d) {
+
+
+                //Update the tooltip position and value
+                d3.select("#tooltip")
+                    .select("#value")
+                    .text("");
+
+                d3.select("#tooltip")
+                    .select("#value")
+                    .append("svg")
+                    .attr("width",500)
+                    .attr("height",170)
+                    .attr("x",30)
+                    .attr("y",0);
+           
+                var svg1 = d3.select("#tooltip")
+                            .select("#value")
+                            .select("svg");
+
+                d3.json("/data/stationuse.json",function(statuse){
+                    
+                    var currstat = [];
+                    var netarr = [];
+                    statuse.forEach(function(m){
+                        if(m.station == d.start_station){
+                            currstat.push([m.day,m.hr,m.netarr]);
+                            netarr.push(m.netarr);
+                        }
+                    });
+
+
+
+                    var offset = 60;
+                    var offsety = 10;
+                    var max = d3.max(netarr);
+                    var min = d3.min(netarr);
+                    console.log(currstat);
+
+                    svg1.append("rect")
+                        .attr("x",offset)
+                        .attr("y",18+offsety)
+                        .attr("width",24*18)
+                        .attr("height",7*18)
+                        .attr("fill", function(c){
+                            val = Math.pow((0-min)/(max-min),2);
+                            var h = val * 240;
+                            return "hsl(" + h + ", 100%, 50%)";                           
+                        });
+
+                    var days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+                    for(i=1;i<8;i++){
+                        svg1.append("text")
+                            .attr("x",19)
+                            .attr("y",18*i+14+offsety)
+                            .style("font-size", "10px") 
+                            .style("font-family", "Helvetica") 
+                            .style("fill","#FFFFFF")
+                            .text(function(){
+                                return(days[i-1]);
+                            })
+                    };
+
+                    for(i=1;i<25;i++){
+                        console.log("HI");
+                        svg1.append("text")
+                            .attr("x",45+18*i)
+                            .attr("y",20)
+                            .style("font-size", "10px") 
+                            .style("font-family", "Helvetica") 
+                            .style("fill","#FFFFFF")
+                            .text(String(i));
+                    };
+
+
+
+                    svg1.selectAll("rect")
+                        .data(currstat)
+                        .enter().append("rect")
+                        .attr("x",function(a){
+                            return(a[1]*18+offset); //hr
+                        })
+                        .attr("y",function(b){
+                            return(b[0]*18+offsety) //day
+                        })
+                        .attr("width",18)
+                        .attr("height",18)
+                        .attr("stroke","white")
+                        .attr("stroke-width",0.9)
+                        .attr("fill",function(c){
+
+                            val = (c[2]-min)/(max-min);
+                            var h = val * 240;
+                            return "hsl(" + h + ", 100%, 50%)";                           
+                        });
+                });
+
+
+                //Show the tooltip
+                d3.select("#tooltip").classed("hidden", false);
+
             });
         
         map.on("viewreset", update);
